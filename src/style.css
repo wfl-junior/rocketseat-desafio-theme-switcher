@@ -1,0 +1,86 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --background-color: #f1f1f1;
+  --indicator-color: #f1f1f1;
+  --label-color: #111;
+  --moon-icon-color: #f1c40f;
+  --sun-icon-color: #f39c12;
+
+  --transition-duration: 300ms;
+  --transition-timing-function: linear;
+}
+
+.dark {
+  --background-color: #292c35;
+}
+
+body {
+  background-color: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  transition: background-color var(--transition-duration)
+    var(--transition-timing-function);
+}
+
+.theme-switcher {
+  --theme-switcher-padding: 0.5rem;
+  --indicator-height: 100%;
+
+  padding: var(--theme-switcher-padding);
+  background-color: var(--label-color);
+  /* 100vmax border-radius for pill shape */
+  border-radius: 100vmax;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 102px;
+  width: 236px;
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+}
+
+.moon-icon,
+.sun-icon {
+  aspect-ratio: 1 / 1;
+  height: var(--indicator-height);
+  position: absolute;
+  top: 0;
+}
+
+.moon-icon {
+  fill: var(--moon-icon-color);
+  left: 0;
+}
+
+.sun-icon {
+  fill: var(--sun-icon-color);
+  right: 0;
+}
+
+.theme-switcher::before {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--indicator-color);
+  /* 50% border-radius for circle */
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  height: calc(var(--indicator-height) - var(--theme-switcher-padding));
+  z-index: 1;
+  transition: transform var(--transition-duration)
+    var(--transition-timing-function);
+}
+
+.dark .theme-switcher::before {
+  transform: translate(calc(150% - var(--theme-switcher-padding)), -50%);
+}
